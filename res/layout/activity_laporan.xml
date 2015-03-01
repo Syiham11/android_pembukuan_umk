@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/layoutLaporan" >
+    
+<!-- Included header.xml here -->
+	<ViewStub android:id="@+id/vsHeader" 
+	    android:inflatedId="@+id/header" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content" 
+		android:layout="@layout/header" />
+	
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+		<TextView
+		    android:id="@+id/textView3"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="Jenis Laporan :"
+		    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+		
+
+		<Spinner
+	        android:id="@+id/spinnerJenisTransaksiLain"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:entries="@array/jenis_laporan"
+	        android:prompt="@string/pilih_laporan" />
+		
+		
+		
+	    </LinearLayout>
+	
+	    
+
+	    <LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"  >
+	        <TableLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		     android:id="@+id/daftarTransaksi" 
+		     android:visibility="gone">
+
+		    <TableRow
+		        android:id="@+id/tableTransaksi1"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content" >
+		        
+		        <TextView
+			    android:id="@+id/tv_id"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="ID"
+			    android:textAppearance="?android:attr/textAppearanceMedium" />
+		        
+		        <TextView
+			    android:id="@+id/tv_tanggal"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="Tanggal"
+			    android:textAppearance="?android:attr/textAppearanceMedium" />
+		        <TextView
+			    android:id="@+id/tv_namaProduk"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="Nama Produk"
+			    android:textAppearance="?android:attr/textAppearanceMedium" />
+		        <TextView
+			    android:id="@+id/tv_jumlahProduk"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="Jumlah Produk"
+			    android:textAppearance="?android:attr/textAppearanceMedium" />
+		        <TextView
+			    android:id="@+id/tv_uraian"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="Uraian"
+			    android:textAppearance="?android:attr/textAppearanceMedium" />
+		        <TextView
+			    android:id="@+id/tv_nilaiRupiah"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="Nilai Rupiah"
+			    android:textAppearance="?android:attr/textAppearanceMedium" />
+		    </TableRow>
+		</TableLayout>
+	    </LinearLayout>
+</LinearLayout>
+</ScrollView>

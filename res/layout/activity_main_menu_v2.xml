@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <!-- Included header.xml here -->
+	<ViewStub android:id="@+id/vsHeader" 
+	    android:inflatedId="@+id/header" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content" 
+		android:layout="@layout/header" />
+
+	<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/profil_umk_button"
+            style="@style/HomeButton"
+            android:drawableTop="@drawable/profilv2"
+            android:onClick="onButtonClicker"
+            android:text="@string/Profil_UMK" />
+
+        <Button android:id="@+id/katalog_button"
+            style="@style/HomeButton"
+            android:onClick="onButtonClicker"
+            android:text="@string/Katalog_produk"
+            android:drawableTop="@drawable/katalogv2"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/transaksi_penjualan_button"
+            style="@style/HomeButton"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/transaksiv2"
+            android:onClick="onButtonClicker"
+            android:text="@string/Transaksi_penjualan" />
+
+        <Button android:id="@+id/transaksi_lain_button"
+            style="@style/HomeButton"
+            android:onClick="onButtonClicker"
+            android:text="@string/Transaksi_lain"
+            android:drawableTop="@drawable/transaksiv2"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <Button android:id="@+id/laporan_button"
+            style="@style/HomeButton"
+            android:onClick="onButtonClicker"
+            android:text="@string/Laporan"
+            android:drawableTop="@drawable/laporanv2"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+</LinearLayout>

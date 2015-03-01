@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1050dp"
+        android:clickable="true"
+        android:focusableInTouchMode="true" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="66dp"
+            android:text="Email"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/regEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_below="@+id/textView1"
+            android:layout_marginTop="18dp"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/regEmail"
+            android:layout_below="@+id/regEmail"
+            android:layout_marginTop="23dp"
+            android:text="Password"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/regPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_below="@+id/textView2"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="textPassword" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/regPassword"
+            android:layout_below="@+id/regPassword"
+            android:layout_marginTop="26dp"
+            android:text="Nama UMK"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/regNamaUMK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_below="@+id/textView3"
+            android:layout_marginTop="17dp"
+            android:ems="10" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/regNamaUMK"
+            android:layout_below="@+id/regNamaUMK"
+            android:layout_marginTop="23dp"
+            android:text="Deskripsi UMK"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/regDeskripsiUMK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView4"
+            android:layout_below="@+id/textView4"
+            android:layout_marginTop="20dp"
+            android:ems="10" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/regDeskripsiUMK"
+            android:layout_below="@+id/regDeskripsiUMK"
+            android:layout_marginTop="14dp"
+            android:text="Alamat Lengkap"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/regAlamatLengkap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView5"
+            android:layout_below="@+id/textView5"
+            android:layout_marginTop="14dp"
+            android:ems="10" >
+        </EditText>
+
+        <EditText
+            android:id="@+id/regNomorTelepon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView6"
+            android:layout_below="@+id/textView6"
+            android:layout_marginTop="14dp"
+            android:ems="10"
+            android:inputType="phone" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/regAlamatLengkap"
+            android:layout_below="@+id/regAlamatLengkap"
+            android:layout_marginTop="15dp"
+            android:text="Nomor Telepon"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/batalUbah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/buttonRegister"
+            android:layout_alignBottom="@+id/buttonRegister"
+            android:layout_marginLeft="33dp"
+            android:layout_toRightOf="@+id/textView5"
+            android:text="Batal Ubah" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/regNomorTelepon"
+            android:layout_below="@+id/regNomorTelepon"
+            android:layout_marginTop="39dp"
+            android:text="Logo UMK"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:id="@+id/regLogoUMK"
+            android:layout_width="88dp"
+	        android:layout_height="110dp"
+            android:layout_alignLeft="@+id/buttonRegister"
+            android:layout_below="@+id/textView7"
+            android:layout_marginTop="26dp"
+            android:src="@drawable/ic_menu_profile" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/regLogoUMK"
+            android:layout_below="@+id/regLogoUMK"
+            android:layout_marginTop="44dp"
+            android:text="Saldo UMK"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+       <EditText
+            android:id="@+id/regSaldo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView8"
+            android:layout_below="@+id/textView8"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="numberDecimal" >
+        </EditText>
+
+       <Button
+           android:id="@+id/buttonRegister"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignLeft="@+id/textView7"
+           android:layout_below="@+id/regSaldo"
+           android:layout_marginTop="50dp"
+           android:text="Set" />
+
+    </RelativeLayout>
+
+</ScrollView>
