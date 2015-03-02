@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,8 +23,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +36,7 @@ public class Transaksi_lain extends Activity implements View.OnClickListener,Vie
 	private String umk_email=new String();
 	private TextView jam;
 	private EditText uraian,nilaiRupiah;
-	private Spinner jenisTransaksiPenjualan;
+	private Spinner jenisTransaksi;
 	private Button addTransaksi;
 	private ImageButton tambahJenisTransaksi;
 	SharedPreferences prefs;
@@ -62,8 +66,8 @@ public class Transaksi_lain extends Activity implements View.OnClickListener,Vie
 		uraian.setOnFocusChangeListener(this);
 		nilaiRupiah.setOnFocusChangeListener(this);
 		
-		jenisTransaksiPenjualan = (Spinner)findViewById(R.id.spinnerJenisTransaksiLain);
-		jenisTransaksiPenjualan.setOnItemSelectedListener(this);
+		jenisTransaksi = (Spinner)findViewById(R.id.spinnerJenisTransaksiLain);
+		jenisTransaksi.setOnItemSelectedListener(this);
 
 		addTransaksi = (Button)findViewById(R.id.buttonTransaksiPenjualanLain);
 		addTransaksi.setOnClickListener(this);
@@ -78,8 +82,10 @@ public class Transaksi_lain extends Activity implements View.OnClickListener,Vie
 	public void loadSpinnerData() {
         // Spinner Drop down elements
         List<String> lables = new ArrayList<String>(); 
-        List<Model_Jenis_Transaksi_Lain> mtl = new ArrayList<Model_Jenis_Transaksi_Lain>();
-        for(int i=0;i<db.getAllJenis_transaksi_lain().size();i++){
+        List<Model_Jenis_Transaksi_Lain> mtl = db.getAllJenis_transaksi_lain();
+        int size = mtl.size();
+
+        for(int i=0;i<size;i++){
         	lables.add(mtl.get(i).getNama_jenis_transaksi());
         }
  
@@ -92,8 +98,53 @@ public class Transaksi_lain extends Activity implements View.OnClickListener,Vie
                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
  
         // attaching data adapter to spinner
-        jenisTransaksiPenjualan.setAdapter(dataAdapter);
+        jenisTransaksi.setAdapter(dataAdapter);
     }
+	
+	private void addJenisTransaksi(){
+		final Dialog myDialog = new Dialog(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_tambah_jenis_transaksi, null);
+        myDialog.setContentView(layout);
+        myDialog.setTitle("Tambah Jenis Transaksi");
+        
+        final EditText namaJenisTransaksi;
+        final RadioButton positif;
+        final RadioButton negatif;
+        final Button buttonTambahJenisTransaksi;
+        
+        namaJenisTransaksi = (EditText)myDialog.findViewById(R.id.namaJenisTransaksi);
+        positif = (RadioButton)myDialog.findViewById(R.id.radioButton1);
+        negatif = (RadioButton)myDialog.findViewById(R.id.radioButton2);
+        buttonTambahJenisTransaksi = (Button)myDialog.findViewById(R.id.buttonTambahJenisTransaksi);
+        
+        buttonTambahJenisTransaksi.setOnClickListener((new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(v.getId()==R.id.buttonTambahJenisTransaksi){
+					if(positif.isChecked()){
+						Model_Jenis_Transaksi_Lain mtl = new Model_Jenis_Transaksi_Lain(namaJenisTransaksi.getText().toString(),
+								positif.getText().toString());
+						db.createJenis_transaksi_lain(mtl);
+						loadSpinnerData();
+						myDialog.dismiss();
+					}
+					if(negatif.isChecked()){
+						Model_Jenis_Transaksi_Lain mtl = new Model_Jenis_Transaksi_Lain(namaJenisTransaksi.getText().toString(),
+								negatif.getText().toString());
+						db.createJenis_transaksi_lain(mtl);
+						loadSpinnerData();
+						myDialog.dismiss();
+					}
+					
+				}
+			}
+        	
+        }));
+        myDialog.show();
+	}
 	
 	public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -145,14 +196,24 @@ public class Transaksi_lain extends Activity implements View.OnClickListener,Vie
     	startActivity(intent);
 		}
 		if(v.getId()==R.id.buttonTransaksiPenjualanLain){
-			Model_Transaksi_Lain mtl = new Model_Transaksi_Lain(jam.getText().toString(),jenisTransaksiPenjualan.getItemAtPosition(jenisTransaksiPenjualan.getSelectedItemPosition()).toString(),uraian.getText().toString(),Long.parseLong(nilaiRupiah.getText().toString()),db.getUMK(umk_email).getId(),db.getAllJenis_transaksi_lain_By_Name(jenisTransaksiPenjualan.getItemAtPosition(jenisTransaksiPenjualan.getSelectedItemPosition()).toString()).getId());
+			Model_Transaksi_Lain mtl = new Model_Transaksi_Lain(jam.getText().toString(),jenisTransaksi.getItemAtPosition(jenisTransaksi.getSelectedItemPosition()).toString(),uraian.getText().toString(),Long.parseLong(nilaiRupiah.getText().toString()),db.getUMK(umk_email).getId(),db.getAllJenis_transaksi_lain_By_Name(jenisTransaksi.getItemAtPosition(jenisTransaksi.getSelectedItemPosition()).toString()).getId());
 			db.createTransaksi_lain(mtl);
+			long currSaldo = db.getUMK(umk_email).getSaldo_umk();
+			if(db.getAllJenis_transaksi_lain_By_Name(jenisTransaksi.getItemAtPosition(jenisTransaksi.getSelectedItemPosition()).toString()).getTipe().equals("Positif")){
+				db.updateSaldoUMK(db.getUMK(umk_email).getId(),currSaldo+Long.parseLong(nilaiRupiah.getText().toString()));
+			}
+			if(db.getAllJenis_transaksi_lain_By_Name(jenisTransaksi.getItemAtPosition(jenisTransaksi.getSelectedItemPosition()).toString()).getTipe().equals("Negatif")){
+				db.updateSaldoUMK(db.getUMK(umk_email).getId(),currSaldo-Long.parseLong(nilaiRupiah.getText().toString()));
+			}
 			Toast.makeText(getApplicationContext(), "Transaksi Berhasil Ditambah", Toast.LENGTH_LONG).show();
 			Intent intent = new Intent(this,Main_menu_v2.class);
 			/*Bundle bundleEmail = new Bundle();
 			bundleEmail.putString("email", umk_email);
 			intent.putExtras(bundleEmail);*/
 			startActivity(intent);
+		}
+		if(v.getId()==R.id.tambahJenisTransaksi){
+			addJenisTransaksi();
 		}
 	}
 

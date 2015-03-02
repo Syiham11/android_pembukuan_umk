@@ -211,6 +211,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return i;
     }
     
+    public void updateSaldoUMK(int id,long saldoBaru){
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	String query = new String();
+    	query = "UPDATE "+ TABLE_UMK +" SET "+ SALDO_UMK + " = " + saldoBaru +" WHERE " + KEY_ID + " = "+ id;
+    	db.execSQL(query);
+    	db.close();
+    }
+    
 	// ------------------------ "PRODUK" table methods ----------------//
 	
 	/**
@@ -625,7 +633,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * */
     public Model_Jenis_Transaksi_Lain getAllJenis_transaksi_lain_By_Name(String name) {
         Model_Jenis_Transaksi_Lain mtp = new Model_Jenis_Transaksi_Lain();
-        String selectQuery = "SELECT  * FROM " + TABLE_JENIS_TRANSAKSI_LAIN + "WHERE " + NAMA_JENIS_TRANSAKSI + " = " + name;
+        String selectQuery = "SELECT  * FROM " + TABLE_JENIS_TRANSAKSI_LAIN + " WHERE " + NAMA_JENIS_TRANSAKSI + " = \"" + name +"\"";
      
         Log.e(LOG, selectQuery);
      
