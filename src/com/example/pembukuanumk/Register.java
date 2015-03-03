@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -32,6 +33,7 @@ public class Register extends Activity implements View.OnClickListener,View.OnFo
 	private ImageView logoUMK;
 	private Button register;
 	DatabaseHelper db;
+	SharedPreferences.Editor editor;
 	// PICK_PHOTO_CODE is a constant integer
 			public final static int PICK_PHOTO_CODE = 1046;
 	
@@ -40,6 +42,7 @@ public class Register extends Activity implements View.OnClickListener,View.OnFo
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 		this.db = new DatabaseHelper(this);
+		editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
 		email = (EditText)findViewById(R.id.regEmail);
 		password = (EditText)findViewById(R.id.regPassword);
 		namaUMK = (EditText)findViewById(R.id.regNamaUMK);
@@ -126,9 +129,8 @@ public class Register extends Activity implements View.OnClickListener,View.OnFo
 			
 			db.createUMK(UMK);
 			Intent i1 = new Intent(this,Main_menu_v2.class);
-			Bundle bundleEmail = new Bundle();
-			bundleEmail.putString("email", email.getText().toString());
-			i1.putExtras(bundleEmail);
+			editor.putString("email", email.getText().toString());
+			editor.commit();
 			startActivity(i1);
 		}
 		if(v.getId()==R.id.logoUMK){

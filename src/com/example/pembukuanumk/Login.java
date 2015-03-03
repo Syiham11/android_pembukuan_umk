@@ -80,9 +80,6 @@ public class Login extends Activity implements View.OnClickListener,View.OnFocus
 			if((email.getText().toString().equals(emailTemp)&&(password.getText().toString().equals(passwordTemp)))){
 				Intent i1 = new Intent(this,Main_menu_v2.class);
 				Toast.makeText(getApplicationContext(), "Login Berhasil", Toast.LENGTH_SHORT).show();
-				Bundle bundleEmail = new Bundle();
-				bundleEmail.putString("email", emailTemp);
-				i1.putExtras(bundleEmail);
 				editor.putString("email", emailTemp);
 				editor.commit();
 				startActivity(i1);

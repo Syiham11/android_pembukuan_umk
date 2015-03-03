@@ -165,7 +165,10 @@ public class Profil_umk extends Activity implements View.OnClickListener {
     }
 	
 	
-
+	public void onBackPressed() {
+		Intent intent = new Intent(getApplicationContext(), Main_menu_v2.class);
+    	startActivity(intent);
+	}
 
 
 	@Override

@@ -72,6 +72,11 @@ public class Katalog_produk extends Activity implements OnItemClickListener,OnCl
     		
     }
 	
+	public void onBackPressed() {
+		Intent intent = new Intent(getApplicationContext(), Main_menu_v2.class);
+    	startActivity(intent);
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -97,9 +102,6 @@ public class Katalog_produk extends Activity implements OnItemClickListener,OnCl
 		// TODO Auto-generated method stub
 		if(v.getId()==R.id.btnHome){
 		Intent intent = new Intent(getApplicationContext(), Main_menu_v2.class);
-		/*Bundle bundleEmail = new Bundle();
-		bundleEmail.putString("email", umk_email);
-		intent.putExtras(bundleEmail);*/
     	startActivity(intent);
 		}
 		if(v.getId()==R.id.btnAddProduct){

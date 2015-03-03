@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,6 +36,7 @@ public class Laporan extends Activity implements View.OnClickListener,OnItemSele
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_laporan);
 		setHeader(getString(R.string.Laporan), false, true);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); 
 		this.db = new DatabaseHelper(this);
 		prefs = getSharedPreferences("MyPref", MODE_PRIVATE); 
 		umk_email= prefs.getString("email", null);
@@ -111,7 +113,9 @@ public class Laporan extends Activity implements View.OnClickListener,OnItemSele
 				TextView tv_tanggal = new TextView(this);
 				tv_tanggal.setText(listTransaksiPenjualan.get(i).getTanggal_transaksi_penjualan());
 				TextView tv_namaProduk = new TextView(this);
-				tv_namaProduk.setText(db.getProduct(listTransaksiPenjualan.get(i).getId()).getNama_produk());
+				tv_namaProduk.setText(db.getProduct(db.getM2M_transaksi_produk(listTransaksiPenjualan.get(i).getId()).getProduk_ids()).getNama_produk());
+				TextView tv_jumlahProduk = new TextView(this);
+				tv_jumlahProduk.setText(Integer.toString(db.getM2M_transaksi_produk(listTransaksiPenjualan.get(i).getId()).getJumlah_barang()));
 				TextView tv_uraian = new TextView(this);
 				tv_uraian.setText(listTransaksiPenjualan.get(i).getUraian_transaksi());
 				TextView tv_nilaiRupiah = new TextView(this);
@@ -121,6 +125,7 @@ public class Laporan extends Activity implements View.OnClickListener,OnItemSele
 				tr1.addView(tv_id);
 				tr1.addView(tv_tanggal);
 				tr1.addView(tv_namaProduk);
+				tr1.addView(tv_jumlahProduk);
 				tr1.addView(tv_uraian);
 				tr1.addView(tv_nilaiRupiah);
 				tl.addView(tr1);
@@ -134,6 +139,11 @@ public class Laporan extends Activity implements View.OnClickListener,OnItemSele
 	public void onNothingSelected(AdapterView<?> parent) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void onBackPressed() {
+		Intent intent = new Intent(getApplicationContext(), Main_menu_v2.class);
+    	startActivity(intent);
 	}
 
 }

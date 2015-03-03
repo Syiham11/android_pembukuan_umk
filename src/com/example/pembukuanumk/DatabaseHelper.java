@@ -576,6 +576,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return mtp;
     }
     
+    public Model_M2M_Transaksi_Produk getM2M_transaksi_produk(int id) {
+        String selectQuery = "SELECT  * FROM " + TABLE_M2M_TRANSAKSI_PRODUK + " WHERE " + KEY_ID + " = " + id;
+     
+        Log.e(LOG, selectQuery);
+     
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        Model_M2M_Transaksi_Produk m2m = new Model_M2M_Transaksi_Produk();
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+            	
+                m2m.setKey_id(c.getInt((c.getColumnIndex(KEY_ID))));
+                m2m.setProduk_ids(c.getInt(c.getColumnIndex(PRODUK_IDS)));
+                m2m.setJumlah_barang(c.getInt(c.getColumnIndex(JUMLAH_BARANG)));
+
+            } while (c.moveToNext());
+        }
+     
+        return m2m;
+    }
+    
  
       
    // ------------------------ "JENIS_TRANSAKSI_LAIN" table methods ----------------//

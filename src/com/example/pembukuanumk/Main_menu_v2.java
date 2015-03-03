@@ -68,6 +68,10 @@ public class Main_menu_v2 extends Activity implements View.OnClickListener {
     		
     }
 	
+	public void onBackPressed() {
+	    moveTaskToBack(false);
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

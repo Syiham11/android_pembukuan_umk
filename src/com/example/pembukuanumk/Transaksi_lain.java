@@ -242,5 +242,10 @@ public class Transaksi_lain extends Activity implements View.OnClickListener,Vie
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void onBackPressed() {
+		Intent intent = new Intent(getApplicationContext(), Main_menu_v2.class);
+    	startActivity(intent);
+	}
 
 }
