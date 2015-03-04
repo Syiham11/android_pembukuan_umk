@@ -1,44 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pembukuanumk"
+    package="com.example.pembukuanrumahtangga"
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="21" />
+        android:targetSdkVersion="18" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
         <activity
-            android:name=".Login"
-            android:label="@string/app_name" >
+            android:name="com.example.pembukuanrumahtangga.MainActivity"
+            android:label="@string/app_name"
+            android:noHistory="true" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"  />
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.pembukuanumk.Register" ></activity>
-        <activity android:name="com.example.pembukuanumk.Main_menu" ></activity>
-        <activity android:name="com.example.pembukuanumk.Main_menu_v2" ></activity>
-        <activity android:name="com.example.pembukuanumk.Profil_umk" ></activity>
-        <activity android:name="com.example.pembukuanumk.Katalog_produk" ></activity>
-        <activity android:name="com.example.pembukuanumk.Transaksi_penjualan" ></activity>
-        <activity android:name="com.example.pembukuanumk.Transaksi_lain" ></activity>
-        <activity android:name="com.example.pembukuanumk.Laporan" ></activity>
-        <activity android:name="com.example.pembukuanumk.Tambah_produk" ></activity>
-        <activity android:name="com.example.pembukuanumk.Product_detail" ></activity>
-        <activity android:name="com.example.pembukuanumk.Ubah_product_detail" ></activity>
-        <activity android:name="com.example.pembukuanumk.Detail_barang_transaksi_penjualan" ></activity>
-        
+        <activity android:name="com.example.pembukuanrumahtangga.RegisterActivity"></activity>
+        <activity android:name="com.example.pembukuanrumahtangga.MainMenuActivity"></activity>
+        <activity android:name="com.example.pembukuanrumahtangga.PemasukanActivity"></activity>
+        <activity android:name="com.example.pembukuanrumahtangga.PengeluaranActivity"></activity>
+         <activity android:name="com.example.pembukuanrumahtangga.HistoryActivity"></activity>
     </application>
 
 </manifest>
