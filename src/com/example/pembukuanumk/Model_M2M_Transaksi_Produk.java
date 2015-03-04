@@ -4,17 +4,20 @@ public class Model_M2M_Transaksi_Produk {
 	private int key_id;
 	private int produk_ids;
 	private int jumlah_barang;
-	public Model_M2M_Transaksi_Produk(int produk_ids, int jumlah_barang) {
+	private int umk_id;
+	public Model_M2M_Transaksi_Produk(int produk_ids, int jumlah_barang,int umk_id) {
 		super();
 		this.produk_ids = produk_ids;
 		this.jumlah_barang = jumlah_barang;
+		this.umk_id = umk_id;
 	}
 	public Model_M2M_Transaksi_Produk(int key_id, int produk_ids,
-			int jumlah_barang) {
+			int jumlah_barang,int umk_id) {
 		super();
 		this.key_id = key_id;
 		this.produk_ids = produk_ids;
 		this.jumlah_barang = jumlah_barang;
+		this.umk_id = umk_id;
 	}
 	public Model_M2M_Transaksi_Produk() {
 		super();
@@ -37,6 +40,14 @@ public class Model_M2M_Transaksi_Produk {
 	public void setJumlah_barang(int jumlah_barang) {
 		this.jumlah_barang = jumlah_barang;
 	}
+	public int getUmk_id() {
+		return umk_id;
+	}
+	public void setUmk_id(int umk_id) {
+		this.umk_id = umk_id;
+	}
+	
+	
 	
 	
 }

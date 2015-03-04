@@ -111,14 +111,17 @@ public class Transaksi_penjualan extends Activity implements View.OnClickListene
 					intent.putExtras(bundleEmail);*/
 					
 					tempBarang = new ArrayList<Model_M2M_Transaksi_Produk>();
-					Model_M2M_Transaksi_Produk m2m = new Model_M2M_Transaksi_Produk();
+					
 					for(int i=0;i<listProduct.size();i++){
-						CheckBox c = (CheckBox)myDialog.findViewById(i);
+						Model_M2M_Transaksi_Produk m2m = new Model_M2M_Transaksi_Produk();
+						CheckBox c = (CheckBox)myDialog.findViewById(i+1);
+						c.setId(i);
 						EditText e = (EditText)myDialog.findViewById(idJumber[i]);
 						int trmp = Integer.parseInt(e.getText().toString().trim());
 						if(c.isChecked()){
 							m2m.setProduk_ids(db.getProductByName(c.getText().toString()).getId());
 							m2m.setJumlah_barang(trmp);
+							m2m.setUmk_id(db.getUMK(umk_email).getId());
 						}
 						tempBarang.add(m2m);
 					}
@@ -151,11 +154,11 @@ public class Transaksi_penjualan extends Activity implements View.OnClickListene
 		    row.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
 		    CheckBox checkBox = new CheckBox(this);
 		    checkBox.setOnCheckedChangeListener(this);
-		    checkBox.setId(i);
+		    checkBox.setId(i+1);
 		    checkBox.setText(listProduct.get(i).getNama_produk());
 		    row.addView(checkBox);
 		    EditText et = new EditText(this);
-		    et.setId(View.generateViewId());
+		    et.setId(i+1);
 		    idJumber[i] = et.getId();
 		    row.addView(et);
 		    table_barang.addView(row);

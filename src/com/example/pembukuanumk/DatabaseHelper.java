@@ -65,6 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
   //Column table m2m transaksi produk
     private static final String PRODUK_IDS="produk_id";
     private static final String JUMLAH_BARANG="jumlah_barang";
+    private static final String UMK_IDS_M2M="umk_ids";
   //Column table m2m jenis transaksi lain
     private static final String NAMA_JENIS_TRANSAKSI="nama_jenis_transaksi";
     private static final String TIPE="tipe";
@@ -96,7 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
   //TABLE M2M_TRANSAKSI_PRODUK CREATE STATEMENT
     private static final String CREATE_TABLE_M2M_TRANSAKSI_PRODUK = "CREATE TABLE "
             + TABLE_M2M_TRANSAKSI_PRODUK + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + PRODUK_IDS
-            + " NUMBER," + JUMLAH_BARANG + " NUMBER)";
+            + " NUMBER," + JUMLAH_BARANG + " NUMBER," + UMK_IDS_M2M + " NUMBER)";
   //TABLE JENIS_TRANSAKSI_LAIN
     private static final String CREATE_TABLE_JENIS_TRANSAKSI_LAIN = "CREATE TABLE "
             + TABLE_JENIS_TRANSAKSI_LAIN + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAMA_JENIS_TRANSAKSI
@@ -211,12 +212,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return i;
     }
     
-    public void updateSaldoUMK(int id,long saldoBaru){
+    public int updateSaldoUMK(int id,long saldoBaru){
     	SQLiteDatabase db = this.getWritableDatabase();
     	String query = new String();
-    	query = "UPDATE "+ TABLE_UMK +" SET "+ SALDO_UMK + " = " + saldoBaru +" WHERE " + KEY_ID + " = "+ id;
-    	db.execSQL(query);
-    	db.close();
+    	ContentValues values = new ContentValues();
+    	values.put(SALDO_UMK, saldoBaru);
+    	// updating row
+        int i =  db.update(TABLE_UMK, values, KEY_ID + " = ?", new String[] {(Integer.toString(id)) });
+        db.close();
+        
+    	return i;
     }
     
 	// ------------------------ "PRODUK" table methods ----------------//
@@ -539,6 +544,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
           
           values.put(PRODUK_IDS, mtp.getProduk_ids());
           values.put(JUMLAH_BARANG, mtp.getJumlah_barang());
+          values.put(UMK_IDS_M2M, mtp.getUmk_id());
    
           // insert row
           long ROW_M2M_TRANSAKSI_PRODUK = db.insert(TABLE_M2M_TRANSAKSI_PRODUK, null, values);
@@ -549,11 +555,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
       }
   	
   	/*
-     * getting all transaksi_lain
+     * getting all Model_M2M_Transaksi_Produk
      * */
-    public List<Model_M2M_Transaksi_Produk> getAllM2M_transaksi_produk() {
+    public List<Model_M2M_Transaksi_Produk> getAllM2M_transaksi_produk(int id) {
         List<Model_M2M_Transaksi_Produk> mtp = new ArrayList<Model_M2M_Transaksi_Produk>();
-        String selectQuery = "SELECT  * FROM " + TABLE_M2M_TRANSAKSI_PRODUK;
+        String selectQuery = "SELECT  * FROM " + TABLE_M2M_TRANSAKSI_PRODUK + " WHERE " + UMK_IDS_M2M + " = " + id;
      
         Log.e(LOG, selectQuery);
      
@@ -567,7 +573,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 m2m.setKey_id(c.getInt((c.getColumnIndex(KEY_ID))));
                 m2m.setProduk_ids(c.getInt(c.getColumnIndex(PRODUK_IDS)));
                 m2m.setJumlah_barang(c.getInt(c.getColumnIndex(JUMLAH_BARANG)));
-     
+                m2m.setUmk_id(c.getInt(c.getColumnIndex(UMK_IDS_M2M)));
                 // adding to products list
                 mtp.add(m2m);
             } while (c.moveToNext());
@@ -591,7 +597,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 m2m.setKey_id(c.getInt((c.getColumnIndex(KEY_ID))));
                 m2m.setProduk_ids(c.getInt(c.getColumnIndex(PRODUK_IDS)));
                 m2m.setJumlah_barang(c.getInt(c.getColumnIndex(JUMLAH_BARANG)));
-
+                m2m.setUmk_id(c.getInt(c.getColumnIndex(UMK_IDS_M2M)));
             } while (c.moveToNext());
         }
      
