@@ -105,19 +105,14 @@ public class Transaksi_penjualan extends Activity implements View.OnClickListene
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(v.getId()==R.id.addDetailTransaksiPenjualan){
-					
-
-					/*bundleEmail.putString("email", umk_email);
-					intent.putExtras(bundleEmail);*/
-					
 					tempBarang = new ArrayList<Model_M2M_Transaksi_Produk>();
 					
 					for(int i=0;i<listProduct.size();i++){
 						Model_M2M_Transaksi_Produk m2m = new Model_M2M_Transaksi_Produk();
 						CheckBox c = (CheckBox)myDialog.findViewById(i+1);
 						c.setId(i);
-						EditText e = (EditText)myDialog.findViewById(idJumber[i]);
-						int trmp = Integer.parseInt(e.getText().toString().trim());
+						EditText e = (EditText)myDialog.findViewById(i+1);
+						int trmp = Integer.parseInt(e.getText().toString());
 						if(c.isChecked()){
 							m2m.setProduk_ids(db.getProductByName(c.getText().toString()).getId());
 							m2m.setJumlah_barang(trmp);

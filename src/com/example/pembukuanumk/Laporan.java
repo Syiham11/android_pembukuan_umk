@@ -106,20 +106,19 @@ public class Laporan extends Activity implements View.OnClickListener,OnItemSele
 			TableLayout tl = (TableLayout)findViewById(R.id.daftarTransaksi);
 			tl.setVisibility(View.VISIBLE);
 			
-			List<Model_Transaksi_Penjualan> listTransaksiPenjualan = db.getAllTransaksi_penjualan(db.getUMK(umk_email).getId());
 			List<Model_M2M_Transaksi_Produk> listLaporan = db.getAllM2M_transaksi_produk(db.getUMK(umk_email).getId());
-			for(int i=0;i<listTransaksiPenjualan.size();i++){
-				for(int j=i;j<listLaporan.size();j++){
+
+				for(int j=0;j<listLaporan.size();j++){
 					TextView tv_id = new TextView(this);
-					tv_id.setText(""+listTransaksiPenjualan.get(i).getId());
+					tv_id.setText(""+listLaporan.get(j).getKey_id());
 					TextView tv_tanggal = new TextView(this);
-					tv_tanggal.setText(listTransaksiPenjualan.get(i).getTanggal_transaksi_penjualan());
+					tv_tanggal.setText(db.getTransaksi_penjualan(db.getUMK(umk_email).getId(), listLaporan.get(j).getKey_id()).getTanggal_transaksi_penjualan());
 					TextView tv_namaProduk = new TextView(this);
 					tv_namaProduk.setText(db.getProduct(listLaporan.get(j).getProduk_ids()).getNama_produk());
 					TextView tv_jumlahProduk = new TextView(this);
 					tv_jumlahProduk.setText(Integer.toString(listLaporan.get(j).getJumlah_barang()));
 					TextView tv_uraian = new TextView(this);
-					tv_uraian.setText(listTransaksiPenjualan.get(i).getUraian_transaksi());
+					tv_uraian.setText(db.getTransaksi_penjualan(db.getUMK(umk_email).getId(), listLaporan.get(j).getKey_id()).getUraian_transaksi());
 					/*TextView tv_nilaiRupiah = new TextView(this);
 					tv_nilaiRupiah.setText(Long.toString((listTransaksiPenjualan.get(i).getNilai_rupiah())));*/
 					
@@ -132,9 +131,6 @@ public class Laporan extends Activity implements View.OnClickListener,OnItemSele
 					/*tr1.addView(tv_nilaiRupiah);*/
 					tl.addView(tr1);
 				}
-				
-			}
-			
 		}
 		
 	}

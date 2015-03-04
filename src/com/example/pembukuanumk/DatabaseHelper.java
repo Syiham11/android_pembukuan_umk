@@ -317,7 +317,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      
         // updating row
         int i =  db.update(TABLE_PRODUK, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(product.getId()) });
+                new String[] { Integer.toString(product.getId()) });
         db.close();
         
         return i;
@@ -408,6 +408,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          }
       
          return transaksi_penjualan;
+     }
+     
+     public Model_Transaksi_Penjualan getTransaksi_penjualan(int umk_id,int id) {
+         
+         String selectQuery = "SELECT  * FROM " + TABLE_TRANSAKSI_PENJUALAN + " WHERE umk_ids = " + umk_id + " AND " + KEY_ID + " = "+id;
+      
+         Log.e(LOG, selectQuery);
+      
+         SQLiteDatabase db = this.getReadableDatabase();
+         Cursor c = db.rawQuery(selectQuery, null);
+         Model_Transaksi_Penjualan mtp = new Model_Transaksi_Penjualan();
+         // looping through all rows and adding to list
+         if (c.moveToFirst()) {
+             do {
+                 
+                 mtp.setId(c.getInt((c.getColumnIndex(KEY_ID))));
+                 mtp.setTanggal_transaksi_penjualan(c.getString(c.getColumnIndex(TANGGAL_TRANSAKSI_PENJUALAN)));
+             	mtp.setUraian_transaksi(c.getString(c.getColumnIndex(URAIAN_TRANSAKSI)));
+             	mtp.setNilai_rupiah(c.getLong(c.getColumnIndex(NILAI_RUPIAH)));
+             	mtp.setUmk_id(c.getInt(c.getColumnIndex(UMK_IDS_TP)));
+             } while (c.moveToNext());
+         }
+      
+         return mtp;
      }
      
      /*
