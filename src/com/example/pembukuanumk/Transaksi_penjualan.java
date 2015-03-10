@@ -51,7 +51,9 @@ public class Transaksi_penjualan extends Activity implements View.OnClickListene
 	TableLayout table_barang;
     List<Model_M2M_Transaksi_Produk> tempBarang;
 	List<Model_Product> listProduct;
-	int[] idJumber;
+
+	int[] id_checkbox;
+	int[] id_et;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,14 +111,15 @@ public class Transaksi_penjualan extends Activity implements View.OnClickListene
 					
 					for(int i=0;i<listProduct.size();i++){
 						Model_M2M_Transaksi_Produk m2m = new Model_M2M_Transaksi_Produk();
-						CheckBox c = (CheckBox)myDialog.findViewById(i+1);
-						c.setId(i);
-						EditText e = (EditText)myDialog.findViewById(i+1);
-						int trmp = Integer.parseInt(e.getText().toString());
-						if(c.isChecked()){
-							m2m.setProduk_ids(db.getProductByName(c.getText().toString()).getId());
-							m2m.setJumlah_barang(trmp);
-							m2m.setUmk_id(db.getUMK(umk_email).getId());
+						CheckBox c = (CheckBox)myDialog.findViewById(id_checkbox[i]);
+						EditText e = (EditText)myDialog.findViewById(id_et[i]);
+						if(e.getText().length()!=0){
+							int trmp = Integer.parseInt(e.getText().toString());
+							if(c.isChecked()){
+								m2m.setProduk_ids(db.getProductByName(c.getText().toString()).getId());
+								m2m.setJumlah_barang(trmp);
+								m2m.setUmk_id(db.getUMK(umk_email).getId());
+							}
 						}
 						tempBarang.add(m2m);
 					}
@@ -131,7 +134,8 @@ public class Transaksi_penjualan extends Activity implements View.OnClickListene
 	public void getView(){
 		listProduct = db.getAllproducts(db.getUMK(umk_email).getId());
 		int Array_Count=listProduct.size();
-		idJumber = new int[Array_Count];
+		id_checkbox = new int[Array_Count];
+		id_et = new int[Array_Count];
 		TableRow rowhead =new TableRow(this);
 		rowhead.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
 		TextView tv1 = new TextView(this);
@@ -149,12 +153,13 @@ public class Transaksi_penjualan extends Activity implements View.OnClickListene
 		    row.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
 		    CheckBox checkBox = new CheckBox(this);
 		    checkBox.setOnCheckedChangeListener(this);
-		    checkBox.setId(i+1);
+		    checkBox.setId(View.generateViewId());
+		    id_checkbox[i] = checkBox.getId();
 		    checkBox.setText(listProduct.get(i).getNama_produk());
 		    row.addView(checkBox);
 		    EditText et = new EditText(this);
-		    et.setId(i+1);
-		    idJumber[i] = et.getId();
+		    et.setId(View.generateViewId());
+		    id_et[i] = et.getId();
 		    row.addView(et);
 		    table_barang.addView(row);
 		}
